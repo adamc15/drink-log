@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Drink Log</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Drink Log">
+<meta name="theme-color" content="#17262E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<style>
+:root{
+  --paper:#EDF1F2; --card:#FFFFFF; --ink:#17262E; --ink-2:#55707C; --ink-3:#88A0AA;
+  --line:#D8E1E4; --amber:#C4863A; --amber-soft:#F0E0CB; --teal:#1F5F63; --rust:#9E4A3C; --sage:#5F8A6B;
+  --r:14px; --shadow:0 1px 2px rgba(23,38,46,.06), 0 8px 24px -16px rgba(23,38,46,.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased; overscroll-behavior-y:none;
+}
+.num{font-family:ui-serif,Georgia,"Times New Roman",serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.wrap{max-width:540px;margin:0 auto;padding:0 18px calc(112px + env(safe-area-inset-bottom))}
+header{padding:calc(14px + env(safe-area-inset-top)) 0 6px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:15px;font-weight:600;letter-spacing:.01em;color:var(--ink-2)}
+.iconbtn{border:1px solid var(--line);background:var(--card);color:var(--ink-2);width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:17px;cursor:pointer}
+.iconbtn:active{background:var(--paper)}
+.tabs{display:flex;gap:4px;background:#E1E8EA;padding:4px;border-radius:12px;margin:14px 0 18px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:14px;font-weight:550;padding:8px 4px;border-radius:9px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(23,38,46,.10)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.lede{font-size:19px;line-height:1.35;margin:0 0 4px;letter-spacing:-.01em}
+.lede b{font-family:ui-serif,Georgia,serif;font-weight:600;font-size:25px;letter-spacing:-.02em}
+.sub{color:var(--ink-2);font-size:14px;margin:0}
+.sub .up{color:var(--rust)} .sub .down{color:var(--sage)}
+/* week strip */
+.strip{display:flex;align-items:flex-end;gap:8px;height:132px;margin:20px 0 6px;position:relative}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;background:none;border:0;padding:0;cursor:pointer;position:relative}
+.bar{width:100%;max-width:34px;border-radius:7px 7px 3px 3px;background:var(--amber);min-height:4px;transition:height .25s ease}
+.bar.over{background:var(--rust)}
+.bar.zero{background:none;height:0!important}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--sage);opacity:.75;margin-bottom:1px}
+.dot.future{background:var(--line);opacity:1}
+.val{font-size:11px;color:var(--ink-2);margin-bottom:5px;font-variant-numeric:tabular-nums;min-height:14px}
+.axis{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:7px}
+.axis span{flex:1;text-align:center;font-size:12px;color:var(--ink-3)}
+.axis span.today{color:var(--ink);font-weight:650}
+.limitline{position:absolute;left:0;right:0;border-top:1px dashed var(--ink-3);opacity:.65}
+.limitline i{position:absolute;right:0;top:-16px;font-style:normal;font-size:10px;color:var(--ink-3);background:var(--card);padding:0 4px}
+.col:focus-visible,.tabs button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+/* lists */
+h2{font-size:13px;font-weight:650;color:var(--ink-2);margin:22px 0 9px;letter-spacing:.02em}
+.day{margin-bottom:16px}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--ink-2);padding:0 2px 7px}
+.dayhead b{color:var(--ink);font-weight:600;font-size:14px}
+.entry{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:7px;font:inherit;cursor:pointer}
+.entry:active{background:#F7FAFB}
+.entry .time{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums;width:62px;flex:none}
+.entry .name{flex:1;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.entry .name small{display:block;color:var(--ink-3);font-size:12px;white-space:normal}
+.entry .sd{font-family:ui-serif,Georgia,serif;font-size:15px;color:var(--amber);font-variant-numeric:tabular-nums}
+.entry .sd.other{color:var(--ink-3);font-family:inherit;font-size:13px}
+.empty{text-align:center;color:var(--ink-2);font-size:14px;padding:26px 16px;border:1px dashed var(--line);border-radius:var(--r)}
+.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px;font-weight:600}
+/* hourly */
+.hours{display:flex;align-items:flex-end;gap:2px;height:76px;margin:4px 0 6px}
+.hr{flex:1;background:var(--amber-soft);border-radius:3px;min-height:3px}
+.hr.on{background:var(--amber)}
+.hourax{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3)}
+/* month */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal .dow{text-align:center;font-size:11px;color:var(--ink-3);padding-bottom:2px}
+.cell{aspect-ratio:1;border:1px solid var(--line);border-radius:9px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;cursor:pointer;padding:2px}
+.cell .d{font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.cell .m{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:10px;color:#fff;font-variant-numeric:tabular-nums}
+.cell.blank{border:0;background:none;cursor:default}
+.cell.today{border-color:var(--teal);border-width:2px}
+.cell .af{width:6px;height:6px;border-radius:50%;background:var(--sage);opacity:.6}
+.cell .none{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin-top:12px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px;font-style:normal}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.stat{border:1px solid var(--line);border-radius:11px;padding:11px 12px}
+.stat b{display:block;font-family:ui-serif,Georgia,serif;font-size:22px;letter-spacing:-.02em}
+.stat span{font-size:12px;color:var(--ink-2)}
+.weeks{display:flex;align-items:flex-end;gap:6px;height:66px;margin:12px 0 4px}
+.weeks div{flex:1;background:var(--amber);border-radius:5px 5px 2px 2px;min-height:3px;opacity:.85}
+.weeks div:last-child{opacity:1}
+/* bottom action */
+.fab{position:fixed;left:0;right:0;bottom:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--paper) 62%,rgba(237,241,242,0));z-index:20}
+.fab .inner{max-width:540px;margin:0 auto}
+.primary{width:100%;border:0;background:var(--teal);color:#fff;font:inherit;font-size:17px;font-weight:600;padding:16px;border-radius:14px;cursor:pointer;box-shadow:0 6px 20px -8px rgba(31,95,99,.7)}
+.primary:active{background:#1A5155}
+.ghost{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:15px;padding:13px;border-radius:12px;cursor:pointer;margin-top:8px}
+.danger{color:var(--rust);border-color:#E7CFCA}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(23,38,46,.42);opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-radius:20px 20px 0 0;z-index:31;transform:translateY(101%);transition:transform .26s cubic-bezier(.2,.8,.25,1);max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 18px calc(20px + env(safe-area-inset-bottom))}
+.sheet.on{transform:translateY(0)}
+.sheet .grip{width:38px;height:4px;border-radius:2px;background:var(--line);margin:9px auto 4px}
+.sheethead{display:flex;justify-content:space-between;align-items:center;padding:6px 0 14px;position:sticky;top:0;background:var(--paper);z-index:2}
+.sheethead h3{margin:0;font-size:17px;font-weight:650}
+.sheethead button{border:0;background:none;font:inherit;font-size:15px;color:var(--teal);cursor:pointer;padding:6px 0;font-weight:550}
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pick{border:1px solid var(--line);background:var(--card);border-radius:13px;padding:15px 14px;text-align:left;font:inherit;cursor:pointer}
+.pick:active{background:#F7FAFB;transform:scale(.985)}
+.pick b{display:block;font-size:15px;font-weight:600;margin-bottom:2px}
+.pick span{font-size:12px;color:var(--ink-3)}
+.pick.wide{grid-column:1/-1}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:13px;color:var(--ink-2);margin-bottom:5px;font-weight:550}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:16px;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink)}
+.field textarea{min-height:70px;resize:vertical}
+.row2{display:flex;gap:9px}.row2>*{flex:1}
+.chiprow{display:flex;gap:7px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:8px 13px;font:inherit;font-size:14px;color:var(--ink-2);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(96px + env(safe-area-inset-bottom));background:var(--ink);color:#fff;border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:14px;font-size:14px;z-index:40;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);max-width:calc(100% - 36px)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.toast button{background:none;border:0;color:#8FD3C9;font:inherit;font-weight:650;cursor:pointer;padding:2px}
+.note{font-size:13px;color:var(--ink-2);line-height:1.5}
+.note a{color:var(--teal)}
+.banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--amber-soft);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin:0 0 14px;font-size:13.5px;color:var(--ink)}
+.banner button{flex:none;border:0;background:var(--ink);color:#fff;font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:9px;cursor:pointer}
+pre.out{white-space:pre-wrap;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px;max-height:230px;overflow:auto}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brandrow">
+      <div class="brand">Drink Log</div>
+      <button class="iconbtn" id="btnSettings" aria-label="Settings and export">⋯</button>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-view="day" aria-selected="false">Today</button>
+      <button role="tab" data-view="week" aria-selected="true">Week</button>
+      <button role="tab" data-view="month" aria-selected="false">Month</button>
+    </div>
+  </header>
+  <div class="banner" id="backupBanner" hidden></div>
+  <main id="view"></main>
+</div>
+
+<div class="fab"><div class="inner">
+  <button class="primary" id="btnLog">Log a drink</button>
+</div></div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="grip"></div>
+  <div class="sheethead"><h3 id="sheetTitle">Log</h3><button id="sheetClose">Close</button></div>
+  <div id="sheetBody"></div>
+</div>
+
+<div class="toast" id="toast"><span id="toastMsg"></span><button id="toastAct">Undo</button></div>
+
+<script>
+/* ---------- storage (works as a downloaded file, hosted page, or inside Claude) ---------- */
+const KEY='drinklog.v1';
+const Store={
+  async get(){
+    try{ if(window.storage){const r=await window.storage.get(KEY); return r? r.value:null;} }catch(e){}
+    try{ return localStorage.getItem(KEY); }catch(e){ return null; }
+  },
+  async set(v){
+    try{ if(window.storage){ await window.storage.set(KEY,v); return; } }catch(e){}
+    try{ localStorage.setItem(KEY,v); }catch(e){}
+  }
+};
+let DB={entries:[],settings:{weeklyLimit:14,trackOther:false,weekStart:0,lastBackupAt:null}};
+let view='week', focusDate=null, monthCursor=null, pendingUndo=null, toastTimer=null;
+
+/* ---------- helpers ---------- */
+const pad=n=>String(n).padStart(2,'0');
+const dkey=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const fromKey=k=>{const[a,b,c]=k.split('-').map(Number);return new Date(a,b-1,c);};
+const today=()=>{const d=new Date();d.setHours(0,0,0,0);return d;};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+const startOfWeek=d=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()-DB.settings.weekStart+7)%7));return x;};
+const fmtTime=ts=>new Date(ts).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+const round1=n=>Math.round(n*10)/10;
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dayName=(d,long)=>d.toLocaleDateString([], long?{weekday:'long',month:'short',day:'numeric'}:{weekday:'short'});
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const toLocalInput=ts=>{const d=new Date(ts);return new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,16);};
+const nowLocalInput=()=>toLocalInput(Date.now());
+
+function entriesFor(key){ return DB.entries.filter(e=>dkey(new Date(e.ts))===key).sort((a,b)=>a.ts-b.ts); }
+function sdFor(key){ return round1(entriesFor(key).filter(e=>e.kind==='alcohol').reduce((s,e)=>s+(e.sd||0),0)); }
+function drankOn(key){ return entriesFor(key).some(e=>e.kind==='alcohol'); }
+function hasLog(key){ return DB.entries.some(e=>dkey(new Date(e.ts))===key); }
+
+/* standard drink = 0.6 fl oz pure alcohol (US) */
+const PRESETS=[
+  {id:'beer',   name:'Beer',            desc:'12 oz · 5%',    sd:1.0},
+  {id:'craft',  name:'Craft beer / IPA',desc:'16 oz · 7%',    sd:1.9},
+  {id:'wine',   name:'Wine',            desc:'5 oz · 12%',    sd:1.0},
+  {id:'shot',   name:'Shot',            desc:'1.5 oz · 40%',  sd:1.0},
+  {id:'mixed',  name:'Mixed drink',     desc:'~1.5 shots',    sd:1.5},
+  {id:'seltzer',name:'Hard seltzer',    desc:'12 oz · 5%',    sd:1.0},
+  {id:'glasswine',name:'Big pour of wine',desc:'8 oz · 12%',  sd:1.6},
+  {id:'double', name:'Double / strong pour',desc:'3 oz · 40%',sd:2.0}
+];
+const OTHER=[
+  {id:'cannabis',name:'Cannabis',unit:'session'},
+  {id:'nicotine',name:'Nicotine',unit:'use'},
+  {id:'other',name:'Something else',unit:'use'}
+];
+
+async function save(){ await Store.set(JSON.stringify(DB)); }
+async function load(){
+  const raw=await Store.get();
+  if(raw){ try{ const p=JSON.parse(raw); DB.entries=p.entries||[]; DB.settings=Object.assign(DB.settings,p.settings||{}); }catch(e){} }
+}
+
+/* ---------- rendering ---------- */
+const BACKUP_REMINDER_DAYS=21;
+function updateBackupBanner(){
+  const el=document.getElementById('backupBanner');
+  if(!DB.entries.length){ el.hidden=true; return; }
+  const last=DB.settings.lastBackupAt;
+  const days=last? Math.floor((Date.now()-last)/86400000) : null;
+  const stale = last===null || days>=BACKUP_REMINDER_DAYS;
+  if(!stale){ el.hidden=true; return; }
+  el.hidden=false;
+  el.innerHTML=`<span>${last? `Last backed up ${days} day${days===1?'':'s'} ago.` : "You haven't saved a backup yet."} A cleared browser can erase everything.</span><button id="bannerBackupBtn">Back up now</button>`;
+  document.getElementById('bannerBackupBtn').onclick=backup;
+}
+
+function render(){
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.view===view));
+  const el=document.getElementById('view');
+  el.innerHTML = view==='day'? renderDay() : view==='week'? renderWeek() : renderMonth();
+  bindView();
+  updateBackupBanner();
+}
+
+function renderDay(){
+  const d = focusDate || today();
+  const key = dkey(d), list = entriesFor(key), sd = sdFor(key);
+  const isToday = key===dkey(today());
+  const hours = Array(24).fill(0);
+  list.filter(e=>e.kind==='alcohol').forEach(e=>{ hours[new Date(e.ts).getHours()] += e.sd||0; });
+  const max = Math.max(1, ...hours);
+  const first = list.filter(e=>e.kind==='alcohol')[0];
+  const last  = list.filter(e=>e.kind==='alcohol').slice(-1)[0];
+  let lede;
+  if(sd>0){
+    lede = `<p class="lede"><b>${sd}</b> standard ${sd===1?'drink':'drinks'} ${isToday?'today':'that day'}</p>
+            <p class="sub">${first? `First at ${fmtTime(first.ts)}${last&&last!==first?`, last at ${fmtTime(last.ts)}`:''}`:''}</p>`;
+  } else {
+    lede = `<p class="lede">No drinks logged ${isToday?'today':'that day'}</p>
+            <p class="sub">${isToday?'You can still log something from earlier.':'An alcohol-free day.'}</p>`;
+  }
+  const nav = `<div class="dayhead" style="padding-bottom:12px">
+      <button class="chip" data-shift="-1">‹ Previous</button>
+      <b>${isToday?'Today':dayName(d,true)}</b>
+      <button class="chip" data-shift="1" ${isToday?'disabled style="opacity:.35"':''}>Next ›</button>
+    </div>`;
+  return `<section class="card">${nav}${lede}
+    <div class="hours">${hours.map(h=>`<div class="hr ${h>0?'on':''}" style="height:${h>0?Math.max(12,(h/max)*100):3}%" title="${h?round1(h)+' SD':''}"></div>`).join('')}</div>
+    <div class="hourax"><span>12a</span><span>6a</span><span>noon</span><span>6p</span><span>11p</span></div>
+  </section>
+  ${list.length? `<h2>Logged</h2>${list.map(entryRow).join('')}` :
+    `<div class="empty"><b>Nothing logged yet</b>Tap “Log a drink” — it takes one tap.</div>`}`;
+}
+
+function entryRow(e){
+  const amt = e.kind==='alcohol' ? `<span class="sd">${round1(e.sd)}</span>` : `<span class="sd other">${e.qty||1} ${e.unit||''}</span>`;
+  const meta=[e.context,e.note].filter(Boolean).join(' · ');
+  return `<button class="entry" data-id="${e.id}">
+    <span class="time">${fmtTime(e.ts)}</span>
+    <span class="name">${esc(e.label)}${meta?`<small>${esc(meta)}</small>`:''}</span>${amt}</button>`;
+}
+
+function renderWeek(){
+  const start = startOfWeek(focusDate||today());
+  const days = Array.from({length:7},(_,i)=>addDays(start,i));
+  const vals = days.map(d=>sdFor(dkey(d)));
+  const total = round1(vals.reduce((a,b)=>a+b,0));
+  const drinkingDays = days.filter(d=>drankOn(dkey(d))).length;
+  const tkey=dkey(today());
+  const past = days.filter(d=>dkey(d)<=tkey);
+  const afDays = past.filter(d=>!drankOn(dkey(d))).length;
+  const prev = days.map(d=>sdFor(dkey(addDays(d,-7)))).reduce((a,b)=>a+b,0);
+  const lim = DB.settings.weeklyLimit;
+  const max = Math.max(...vals, lim? lim/3:0, 3);
+  const over = lim && total>lim;
+  const isThisWeek = dkey(start)===dkey(startOfWeek(today()));
+
+  let compare='';
+  if(prev>0||total>0){
+    const diff=round1(total-prev);
+    compare = diff===0? 'Same as the week before.' :
+      diff>0? `<span class="up">${diff} more</span> than the week before.` :
+              `<span class="down">${Math.abs(diff)} fewer</span> than the week before.`;
+  }
+  const limitTop = lim? (1 - Math.min(1,(lim/7)/max))*100 : null;
+
+  const bars = days.map((d,i)=>{
+    const v=vals[i], k=dkey(d), fut = k>tkey;
+    const h = v>0? Math.max(6,(v/max)*100) : 0;
+    const dayOver = lim && v > lim/7*1.8;
+    return `<button class="col" data-date="${k}" aria-label="${dayName(d,true)}: ${v} standard drinks">
+      <span class="val">${v>0?v:''}</span>
+      ${v>0? `<span class="bar ${dayOver?'over':''}" style="height:${h}%"></span>`
+           : `<span class="dot ${fut?'future':''}"></span>`}
+    </button>`;
+  }).join('');
+
+  return `<section class="card">
+    <p class="lede"><b>${total}</b> standard ${total===1?'drink':'drinks'} ${isThisWeek?'this week':'that week'}</p>
+    <p class="sub">${drinkingDays? `Across ${drinkingDays} ${drinkingDays===1?'day':'days'}. ${afDays} alcohol-free so far.` : 'Nothing logged yet this week.'} ${compare}</p>
+    <div class="strip">
+      ${limitTop!==null? `<div class="limitline" style="top:${limitTop}%"><i>daily pace</i></div>`:''}
+      ${bars}
+    </div>
+    <div class="axis">${days.map(d=>`<span class="${dkey(d)===tkey?'today':''}">${dayName(d)}</span>`).join('')}</div>
+    ${lim? `<p class="sub" style="margin-top:12px">${over? `Over your ${lim}-drink weekly marker by ${round1(total-lim)}.` : `${round1(lim-total)} left before your ${lim}-drink weekly marker.`}</p>`:''}
+    <div class="dayhead" style="padding:14px 0 0">
+      <button class="chip" data-wshift="-1">‹ Previous week</button>
+      <button class="chip" data-wshift="1" ${isThisWeek?'disabled style="opacity:.35"':''}>Next ›</button>
+    </div>
+  </section>
+  ${weekList(days)}`;
+}
+
+function weekList(days){
+  const withEntries = days.filter(d=>entriesFor(dkey(d)).length).reverse();
+  if(!withEntries.length) return `<div class="empty"><b>An empty week so far</b>Every log makes the picture you bring to your next session more accurate.</div>`;
+  return `<h2>Logged this week</h2>` + withEntries.map(d=>{
+    const k=dkey(d), sd=sdFor(k);
+    return `<div class="day"><div class="dayhead"><b>${dkey(d)===dkey(today())?'Today':dayName(d,true)}</b><span>${sd>0?sd+' SD':'no alcohol'}</span></div>
+      ${entriesFor(k).map(entryRow).join('')}</div>`;
+  }).join('');
+}
+
+function renderMonth(){
+  const cur = monthCursor || new Date(today().getFullYear(), today().getMonth(), 1);
+  const y=cur.getFullYear(), m=cur.getMonth();
+  const first=new Date(y,m,1), dim=new Date(y,m+1,0).getDate();
+  const lead=(first.getDay()-DB.settings.weekStart+7)%7;
+  const tkey=dkey(today());
+  let cells='';
+  for(let i=0;i<lead;i++) cells+=`<div class="cell blank"></div>`;
+  let total=0, drinkDays=0, afDays=0, heavy={v:0,k:null}, logged=0;
+  for(let d=1;d<=dim;d++){
+    const date=new Date(y,m,d), k=dkey(date), v=sdFor(k), fut=k>tkey;
+    if(!fut){ total+=v; if(v>0){drinkDays++; if(v>heavy.v)heavy={v,k};} else afDays++; if(hasLog(k))logged++; }
+    const size = v>0? Math.min(30, 15+v*2.4) : 0;
+    const col = v>=5? 'var(--rust)' : v>0? 'var(--amber)' : '';
+    const mark = v>0 ? `<span class="m" style="width:${size}px;height:${size}px;background:${col}">${round1(v)}</span>`
+                     : `<span class="${fut?'none':'af'}"></span>`;
+    cells+=`<button class="cell ${k===tkey?'today':''}" data-date="${k}" aria-label="${d}: ${v} standard drinks"><span class="d">${d}</span>${mark}</button>`;
+  }
+  const dows=['S','M','T','W','T','F','S'];
+  const order=Array.from({length:7},(_,i)=>dows[(i+DB.settings.weekStart)%7]);
+  const days = Math.min(dim, (y===today().getFullYear()&&m===today().getMonth())? today().getDate() : dim);
+  const avg = days? round1(total/days) : 0;
+  const isThisMonth = y===today().getFullYear() && m===today().getMonth();
+
+  // last 8 weeks
+  const ws=startOfWeek(today());
+  const weeks=Array.from({length:8},(_,i)=>{
+    const s=addDays(ws,-7*(7-i));
+    return round1(Array.from({length:7},(_,j)=>sdFor(dkey(addDays(s,j)))).reduce((a,b)=>a+b,0));
+  });
+  const wmax=Math.max(1,...weeks);
+
+  return `<section class="card">
+    <div class="dayhead" style="padding-bottom:14px">
+      <button class="chip" data-mshift="-1">‹</button>
+      <b>${cur.toLocaleDateString([], {month:'long', year:'numeric'})}</b>
+      <button class="chip" data-mshift="1" ${isThisMonth?'disabled style="opacity:.35"':''}>›</button>
+    </div>
+    <div class="cal">${order.map(d=>`<div class="dow">${d}</div>`).join('')}${cells}</div>
+    <div class="legend">
+      <span><i style="background:var(--amber)"></i>drinking day</span>
+      <span><i style="background:var(--rust)"></i>5+ drinks</span>
+      <span><i style="background:var(--sage);opacity:.6"></i>alcohol-free</span>
+    </div>
+  </section>
+  <section class="card">
+    <div class="statgrid">
+      <div class="stat"><b>${round1(total)}</b><span>standard drinks</span></div>
+      <div class="stat"><b>${avg}</b><span>average per day</span></div>
+      <div class="stat"><b>${afDays}</b><span>alcohol-free days</span></div>
+      <div class="stat"><b>${heavy.k? round1(heavy.v):'—'}</b><span>${heavy.k? 'heaviest day, '+fromKey(heavy.k).toLocaleDateString([], {month:'short',day:'numeric'}) : 'heaviest day'}</span></div>
+    </div>
+  </section>
+  <section class="card">
+    <p class="lede" style="font-size:16px;margin-bottom:2px">Last eight weeks</p>
+    <p class="sub">Weekly totals, oldest to newest.</p>
+    <div class="weeks">${weeks.map(w=>`<div style="height:${Math.max(4,(w/wmax)*100)}%" title="${w} SD"></div>`).join('')}</div>
+    <div class="hourax"><span>8 wks ago</span><span>this week</span></div>
+  </section>`;
+}
+
+function bindView(){
+  document.querySelectorAll('[data-shift]').forEach(b=>b.onclick=()=>{ focusDate=addDays(focusDate||today(), +b.dataset.shift); render(); });
+  document.querySelectorAll('[data-wshift]').forEach(b=>b.onclick=()=>{ focusDate=addDays(startOfWeek(focusDate||today()), 7*+b.dataset.wshift); render(); });
+  document.querySelectorAll('[data-mshift]').forEach(b=>b.onclick=()=>{
+    const c=monthCursor||new Date(today().getFullYear(),today().getMonth(),1);
+    monthCursor=new Date(c.getFullYear(), c.getMonth()+ +b.dataset.mshift, 1); render();
+  });
+  document.querySelectorAll('[data-date]').forEach(b=>b.onclick=()=>{ focusDate=fromKey(b.dataset.date); view='day'; render(); });
+  document.querySelectorAll('.entry').forEach(b=>b.onclick=()=>openEntry(b.dataset.id));
+}
+
+/* ---------- sheet ---------- */
+const sheet=document.getElementById('sheet'), scrim=document.getElementById('scrim');
+function openSheet(title, html, after){
+  document.getElementById('sheetTitle').textContent=title;
+  document.getElementById('sheetBody').innerHTML=html;
+  sheet.classList.add('on'); scrim.classList.add('on');
+  if(after) after();
+}
+function closeSheet(){ sheet.classList.remove('on'); scrim.classList.remove('on'); }
+document.getElementById('sheetClose').onclick=closeSheet;
+scrim.onclick=closeSheet;
+
+function openLog(){
+  openSheet('What did you have?', `
+    <div class="picks">
+      ${PRESETS.map(p=>`<button class="pick" data-p="${p.id}"><b>${p.name}</b><span>${p.desc} · ${p.sd} SD</span></button>`).join('')}
+      <button class="pick wide" data-custom="1"><b>Something else / exact pour</b><span>Set the size and strength yourself</span></button>
+      ${DB.settings.trackOther? `<button class="pick wide" data-other="1"><b>Not alcohol</b><span>Cannabis, nicotine, or anything else you're tracking</span></button>`:''}
+    </div>
+    <p class="note" style="margin-top:14px">One tap logs it at the current time. Tap an entry afterwards to change the time or add a note.</p>
+    <button class="ghost" data-back="1" style="margin-top:6px">Log for an earlier day</button>
+  `, ()=>{
+    document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{
+      const p=PRESETS.find(x=>x.id===b.dataset.p);
+      addEntry({kind:'alcohol',label:p.name,sd:p.sd,ts:Date.now()});
+      closeSheet();
+    });
+    document.querySelector('[data-custom]').onclick=()=>openCustom();
+    const o=document.querySelector('[data-other]'); if(o) o.onclick=()=>openOther();
+    document.querySelector('[data-back]').onclick=()=>openCustom(true);
+  });
+}
+
+function openCustom(backdate){
+  const now=nowLocalInput();
+  openSheet('Add a drink', `
+    <div class="field"><label for="cl">What was it?</label><input id="cl" placeholder="Whiskey, house red, margarita…"></div>
+    <div class="row2">
+      <div class="field"><label for="coz">Size (fl oz)</label><input id="coz" type="number" inputmode="decimal" step="0.5" placeholder="12"></div>
+      <div class="field"><label for="cab">Strength (% ABV)</label><input id="cab" type="number" inputmode="decimal" step="0.5" placeholder="5"></div>
+    </div>
+    <p class="sub" id="calc" style="margin:-4px 0 14px">Enter a size and strength to see the standard drinks.</p>
+    <div class="field"><label for="cts">When</label><input id="cts" type="datetime-local" value="${now}"></div>
+    <div class="field"><label for="cnote">Note for your therapist (optional)</label><textarea id="cnote" placeholder="Where you were, who with, what set it off, how you felt after."></textarea></div>
+    <button class="primary" id="csave">Save drink</button>
+  `, ()=>{
+    const oz=document.getElementById('coz'), ab=document.getElementById('cab'), out=document.getElementById('calc');
+    const upd=()=>{ const v=(parseFloat(oz.value)||0)*(parseFloat(ab.value)||0)/100/0.6;
+      out.innerHTML = v>0? `That's <b class="num">${round1(v)}</b> standard drinks.` : 'Enter a size and strength to see the standard drinks.'; };
+    oz.oninput=ab.oninput=upd;
+    document.getElementById('csave').onclick=()=>{
+      const label=document.getElementById('cl').value.trim()||'Drink';
+      const sd=round1((parseFloat(oz.value)||0)*(parseFloat(ab.value)||0)/100/0.6) || 1;
+      const ts=new Date(document.getElementById('cts').value||Date.now()).getTime();
+      addEntry({kind:'alcohol',label,sd,ts,note:document.getElementById('cnote').value.trim()});
+      closeSheet();
+    };
+    if(backdate) document.getElementById('cts').focus();
+  });
+}
+
+function openOther(){
+  const now=nowLocalInput();
+  openSheet('Log something else', `
+    <div class="field"><label for="ok">Type</label><select id="ok">${OTHER.map(o=>`<option value="${o.id}">${o.name}</option>`).join('')}</select></div>
+    <div class="field"><label for="olabel">What exactly (optional)</label><input id="olabel" placeholder="e.g. edible, vape, 10mg"></div>
+    <div class="field"><label for="oq">How many</label><input id="oq" type="number" inputmode="decimal" value="1" step="0.5"></div>
+    <div class="field"><label for="ots">When</label><input id="ots" type="datetime-local" value="${now}"></div>
+    <div class="field"><label for="onote">Note (optional)</label><textarea id="onote"></textarea></div>
+    <button class="primary" id="osave">Save</button>
+  `, ()=>{
+    document.getElementById('osave').onclick=()=>{
+      const k=document.getElementById('ok').value, o=OTHER.find(x=>x.id===k);
+      addEntry({kind:k, label:document.getElementById('olabel').value.trim()||o.name,
+        qty:parseFloat(document.getElementById('oq').value)||1, unit:o.unit,
+        ts:new Date(document.getElementById('ots').value||Date.now()).getTime(),
+        note:document.getElementById('onote').value.trim()});
+      closeSheet();
+    };
+  });
+}
+
+function openEntry(id){
+  const e=DB.entries.find(x=>x.id===id); if(!e) return;
+  const local=toLocalInput(e.ts);
+  const contexts=['Home alone','With friends','Out','With family','Work','After a hard day'];
+  openSheet('Edit entry', `
+    <div class="field"><label for="el">What it was</label><input id="el" value="${esc(e.label)}"></div>
+    ${e.kind==='alcohol'
+      ? `<div class="field"><label for="esd">Standard drinks</label><input id="esd" type="number" inputmode="decimal" step="0.1" value="${round1(e.sd)}"></div>`
+      : `<div class="field"><label for="eq">How many</label><input id="eq" type="number" inputmode="decimal" step="0.5" value="${e.qty||1}"></div>`}
+    <div class="field"><label for="ets">When</label><input id="ets" type="datetime-local" value="${local}"></div>
+    <div class="field"><label>Context</label><div class="chiprow" id="ectx">
+      ${contexts.map(c=>`<button class="chip" aria-pressed="${e.context===c}" data-c="${c}">${c}</button>`).join('')}
+    </div></div>
+    <div class="field"><label for="enote">Note</label><textarea id="enote">${esc(e.note)}</textarea></div>
+    <button class="primary" id="esave">Save changes</button>
+    <button class="ghost danger" id="edel">Delete this entry</button>
+  `, ()=>{
+    let ctx=e.context||'';
+    document.querySelectorAll('#ectx .chip').forEach(b=>b.onclick=()=>{
+      ctx = ctx===b.dataset.c? '' : b.dataset.c;
+      document.querySelectorAll('#ectx .chip').forEach(x=>x.setAttribute('aria-pressed', x.dataset.c===ctx));
+    });
+    document.getElementById('esave').onclick=async()=>{
+      e.label=document.getElementById('el').value.trim()||e.label;
+      if(e.kind==='alcohol') e.sd=parseFloat(document.getElementById('esd').value)||0;
+      else e.qty=parseFloat(document.getElementById('eq').value)||1;
+      e.ts=new Date(document.getElementById('ets').value).getTime()||e.ts;
+      e.context=ctx; e.note=document.getElementById('enote').value.trim();
+      await save(); closeSheet(); render(); toast('Entry updated');
+    };
+    document.getElementById('edel').onclick=async()=>{
+      DB.entries=DB.entries.filter(x=>x.id!==id);
+      await save(); closeSheet(); render(); toast('Entry deleted');
+    };
+  });
+}
+
+async function addEntry(o){
+  const e=Object.assign({id:uid(),note:'',context:''},o);
+  DB.entries.push(e); await save();
+  focusDate=null; monthCursor=null; render();
+  pendingUndo=e.id;
+  toast(`${e.label} logged${e.kind==='alcohol'?` · ${round1(e.sd)} SD`:''}`, 'Undo', async()=>{
+    DB.entries=DB.entries.filter(x=>x.id!==e.id); await save(); render(); hideToast();
+  });
+}
+
+/* ---------- toast ---------- */
+const toastEl=document.getElementById('toast'), toastAct=document.getElementById('toastAct');
+function toast(msg, actionLabel, fn){
+  document.getElementById('toastMsg').textContent=msg;
+  if(actionLabel){ toastAct.style.display=''; toastAct.textContent=actionLabel; toastAct.onclick=fn; }
+  else toastAct.style.display='none';
+  toastEl.classList.add('on');
+  clearTimeout(toastTimer); toastTimer=setTimeout(hideToast, 4200);
+}
+function hideToast(){ toastEl.classList.remove('on'); }
+
+/* ---------- settings / export ---------- */
+function openSettings(){
+  openSheet('Settings', `
+    <div class="field"><label for="slim">Weekly marker (standard drinks)</label>
+      <input id="slim" type="number" inputmode="numeric" value="${DB.settings.weeklyLimit||''}" placeholder="Leave blank for none">
+      <p class="note" style="margin-top:6px">Just a reference line on your week — not a target, and nothing happens if you pass it.</p>
+    </div>
+    <div class="field"><label>Also track non-alcohol use</label>
+      <div class="chiprow"><button class="chip" id="sother" aria-pressed="${!!DB.settings.trackOther}">${DB.settings.trackOther?'On':'Off'}</button></div>
+    </div>
+    <button class="ghost" id="sumBtn">Make a summary for my therapist</button>
+    <button class="ghost" id="csvBtn">Download CSV of every entry</button>
+    <button class="ghost" id="bakBtn">Save a backup file</button>
+    <button class="ghost" id="resBtn">Restore from a backup file</button>
+    <input type="file" id="resFile" accept="application/json,.json" style="display:none">
+    <button class="ghost danger" id="wipeBtn">Erase all data</button>
+    <p class="note" style="margin-top:16px">Everything stays in this browser on this device. Nothing is uploaded anywhere. Clearing your browser data will erase it, so save a backup now and then.</p>
+    <p class="note" style="margin-top:10px">This is a log, not medical advice. If you drink heavily and are thinking about stopping suddenly, talk to your doctor first — alcohol withdrawal can be genuinely dangerous.</p>
+  `, ()=>{
+    document.getElementById('slim').onchange=async e=>{ DB.settings.weeklyLimit=parseFloat(e.target.value)||null; await save(); render(); };
+    document.getElementById('sother').onclick=async e=>{
+      DB.settings.trackOther=!DB.settings.trackOther;
+      e.target.setAttribute('aria-pressed',DB.settings.trackOther); e.target.textContent=DB.settings.trackOther?'On':'Off';
+      await save();
+    };
+    document.getElementById('sumBtn').onclick=openSummary;
+    document.getElementById('csvBtn').onclick=downloadCSV;
+    document.getElementById('bakBtn').onclick=backup;
+    document.getElementById('resBtn').onclick=()=>document.getElementById('resFile').click();
+    document.getElementById('resFile').onchange=restore;
+    document.getElementById('wipeBtn').onclick=async()=>{
+      if(confirm('Erase every entry? This cannot be undone.')){ DB.entries=[]; await save(); closeSheet(); render(); toast('All data erased'); }
+    };
+  });
+}
+
+function summaryText(weeks){
+  const end=today(), start=addDays(startOfWeek(end), -7*(weeks-1));
+  const lines=[];
+  lines.push(`Drink log — ${start.toLocaleDateString()} to ${end.toLocaleDateString()}`);
+  lines.push('');
+  let grand=0, drinkDays=0, afDays=0, heaviest={v:0,k:null};
+  for(let w=0; w<weeks; w++){
+    const ws=addDays(start,7*w);
+    const days=Array.from({length:7},(_,i)=>addDays(ws,i)).filter(d=>dkey(d)<=dkey(end));
+    if(!days.length) continue;
+    const vals=days.map(d=>sdFor(dkey(d)));
+    const tot=round1(vals.reduce((a,b)=>a+b,0));
+    const dd=days.filter(d=>drankOn(dkey(d))).length;
+    grand+=tot; drinkDays+=dd; afDays+=days.length-dd;
+    days.forEach((d,i)=>{ if(vals[i]>heaviest.v) heaviest={v:vals[i],k:dkey(d)}; });
+    lines.push(`Week of ${ws.toLocaleDateString()}: ${tot} standard drinks over ${dd} drinking day${dd===1?'':'s'} (${days.length-dd} alcohol-free)`);
+    lines.push('  ' + days.map((d,i)=>`${dayName(d)} ${vals[i]||0}`).join('  '));
+  }
+  lines.push('');
+  lines.push(`Total: ${round1(grand)} standard drinks · ${drinkDays} drinking days · ${afDays} alcohol-free days`);
+  if(heaviest.k) lines.push(`Heaviest day: ${fromKey(heaviest.k).toLocaleDateString()} — ${round1(heaviest.v)} standard drinks`);
+  const notes=DB.entries.filter(e=>e.ts>=start.getTime() && (e.note||e.context)).sort((a,b)=>a.ts-b.ts);
+  if(notes.length){
+    lines.push(''); lines.push('Notes:');
+    notes.forEach(e=>lines.push(`  ${new Date(e.ts).toLocaleDateString()} ${fmtTime(e.ts)} — ${e.label}${e.context?` (${e.context})`:''}${e.note?`: ${e.note}`:''}`));
+  }
+  lines.push(''); lines.push('One standard drink = 0.6 fl oz pure alcohol (12 oz beer at 5%, 5 oz wine at 12%, 1.5 oz spirits at 40%).');
+  return lines.join('\n');
+}
+
+function openSummary(){
+  openSheet('Summary for your therapist', `
+    <div class="field"><label for="swk">Cover the last</label>
+      <select id="swk"><option value="2">2 weeks</option><option value="4" selected>4 weeks</option><option value="8">8 weeks</option><option value="12">12 weeks</option></select>
+    </div>
+    <pre class="out" id="sumOut"></pre>
+    <button class="primary" id="copyBtn">Copy to clipboard</button>
+    <button class="ghost" id="txtBtn">Download as a text file</button>
+  `, ()=>{
+    const out=document.getElementById('sumOut'), sel=document.getElementById('swk');
+    const draw=()=>out.textContent=summaryText(parseInt(sel.value));
+    sel.onchange=draw; draw();
+    document.getElementById('copyBtn').onclick=async()=>{
+      try{ await navigator.clipboard.writeText(out.textContent); toast('Summary copied'); }
+      catch(e){ const r=document.createRange(); r.selectNode(out); getSelection().removeAllRanges(); getSelection().addRange(r); toast('Selected — press copy'); }
+    };
+    document.getElementById('txtBtn').onclick=()=>download(`drink-log-summary.txt`, out.textContent, 'text/plain');
+  });
+}
+
+function downloadCSV(){
+  const rows=[['date','time','kind','what','standard_drinks','quantity','context','note']];
+  DB.entries.slice().sort((a,b)=>a.ts-b.ts).forEach(e=>{
+    const d=new Date(e.ts);
+    rows.push([dkey(d), fmtTime(e.ts), e.kind, e.label, e.kind==='alcohol'?round1(e.sd):'', e.qty||'', e.context||'', e.note||'']);
+  });
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  download('drink-log.csv', csv, 'text/csv');
+}
+async function backup(){
+  download(`drink-log-backup-${dkey(today())}.json`, JSON.stringify(DB,null,2), 'application/json');
+  DB.settings.lastBackupAt=Date.now();
+  await save();
+  updateBackupBanner();
+}
+function restore(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const p=JSON.parse(r.result);
+      if(!p.entries) throw 0;
+      const have=new Set(DB.entries.map(e=>e.id));
+      const added=p.entries.filter(e=>!have.has(e.id));
+      DB.entries=DB.entries.concat(added);
+      DB.settings=Object.assign(DB.settings,p.settings||{});
+      await save(); closeSheet(); render(); toast(`Restored ${added.length} entries`);
+    }catch(e){ toast("That file isn't a Drink Log backup"); }
+  };
+  r.readAsText(f);
+}
+function download(name, text, type){
+  const b=new Blob([text],{type}); const u=URL.createObjectURL(b);
+  const a=document.createElement('a'); a.href=u; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(u);a.remove();},400);
+}
+
+/* ---------- wire up ---------- */
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ view=b.dataset.view; if(view!=='day') focusDate=null; render(); });
+document.getElementById('btnLog').onclick=openLog;
+document.getElementById('btnSettings').onclick=openSettings;
+
+(async()=>{
+  await load(); render();
+  // deep link: ?a=log opens straight to logging (use this for a Shortcuts button)
+  const q=new URLSearchParams(location.search);
+  if(q.get('a')==='log') setTimeout(openLog,180);
+})();
+</script>
+</body>
+</html>
