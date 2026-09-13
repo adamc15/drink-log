@@ -25,7 +25,7 @@ body{
   -webkit-font-smoothing:antialiased; overscroll-behavior-y:none;
 }
 .num{font-family:ui-serif,Georgia,"Times New Roman",serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.wrap{max-width:540px;margin:0 auto;padding:0 18px calc(112px + env(safe-area-inset-bottom))}
+.wrap{max-width:540px;margin:0 auto;padding:0 18px calc(168px + env(safe-area-inset-bottom))}
 header{padding:calc(14px + env(safe-area-inset-top)) 0 6px}
 .brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-size:15px;font-weight:600;letter-spacing:.01em;color:var(--ink-2)}
@@ -122,13 +122,26 @@ h2{font-size:13px;font-weight:650;color:var(--ink-2);margin:22px 0 9px;letter-sp
 .chiprow{display:flex;gap:7px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:8px 13px;font:inherit;font-size:14px;color:var(--ink-2);cursor:pointer}
 .chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(96px + env(safe-area-inset-bottom));background:var(--ink);color:#fff;border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:14px;font-size:14px;z-index:40;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);max-width:calc(100% - 36px)}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(152px + env(safe-area-inset-bottom));background:var(--ink);color:#fff;border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:14px;font-size:14px;z-index:40;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);max-width:calc(100% - 36px)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .toast button{background:none;border:0;color:#8FD3C9;font:inherit;font-weight:650;cursor:pointer;padding:2px}
 .note{font-size:13px;color:var(--ink-2);line-height:1.5}
 .note a{color:var(--teal)}
 .banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--amber-soft);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin:0 0 14px;font-size:13.5px;color:var(--ink)}
 .banner button{flex:none;border:0;background:var(--ink);color:#fff;font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:9px;cursor:pointer}
+.helplink{border:0;background:none;color:var(--rust);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:8px 2px}
+/* streak + chips */
+.streakcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+.streakcard .num{font-size:34px;font-weight:600;line-height:1}
+.streakcard .lbl{color:var(--ink-2);font-size:13.5px;margin-top:2px}
+.streakcard .setlink{border:0;background:none;color:var(--teal);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:6px 0 0}
+.chipstrip{display:flex;gap:7px;overflow-x:auto;padding:14px 0 2px;margin:2px -2px 0}
+.mchip{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px;width:52px}
+.mchip .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:14px;border:2px solid var(--line)}
+.mchip.earned .dot{border-color:transparent;color:#fff}
+.mchip .t{font-size:10px;color:var(--ink-3);text-align:center;line-height:1.2}
+.mchip.earned .t{color:var(--ink-2);font-weight:600}
+.secondary{width:100%;border:1px solid var(--line);background:none;color:var(--ink-2);font:inherit;font-size:14px;padding:11px;border-radius:12px;cursor:pointer;margin-top:8px}
 pre.out{white-space:pre-wrap;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px;max-height:230px;overflow:auto}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -138,7 +151,10 @@ pre.out{white-space:pre-wrap;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,mon
   <header>
     <div class="brandrow">
       <div class="brand">Drink Log</div>
-      <button class="iconbtn" id="btnSettings" aria-label="Settings and export">⋯</button>
+      <div style="display:flex;align-items:center;gap:2px">
+        <button class="helplink" id="btnCrisis">Need help now?</button>
+        <button class="iconbtn" id="btnSettings" aria-label="Settings and export">⋯</button>
+      </div>
     </div>
     <div class="tabs" role="tablist">
       <button role="tab" data-view="day" aria-selected="false">Today</button>
@@ -146,12 +162,14 @@ pre.out{white-space:pre-wrap;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,mon
       <button role="tab" data-view="month" aria-selected="false">Month</button>
     </div>
   </header>
+  <div id="streakCard"></div>
   <div class="banner" id="backupBanner" hidden></div>
   <main id="view"></main>
 </div>
 
 <div class="fab"><div class="inner">
   <button class="primary" id="btnLog">Log a drink</button>
+  <button class="secondary" id="btnCraving">Log a craving</button>
 </div></div>
 
 <div class="scrim" id="scrim"></div>
@@ -177,7 +195,7 @@ const Store={
     try{ localStorage.setItem(KEY,v); }catch(e){}
   }
 };
-let DB={entries:[],settings:{weeklyLimit:14,trackOther:false,weekStart:0,lastBackupAt:null}};
+let DB={entries:[],settings:{weeklyLimit:14,trackOther:false,weekStart:0,lastBackupAt:null,sobrietyStartDate:null}};
 let view='week', focusDate=null, monthCursor=null, pendingUndo=null, toastTimer=null;
 
 /* ---------- helpers ---------- */
@@ -223,6 +241,115 @@ async function load(){
   if(raw){ try{ const p=JSON.parse(raw); DB.entries=p.entries||[]; DB.settings=Object.assign(DB.settings,p.settings||{}); }catch(e){} }
 }
 
+/* ---------- streak + milestones ---------- */
+/* Chip colors follow the common AA tradition (varies by group): white for
+ * 24 hours, red for 30 days, gold for 60, green for 90, blue for 6 months,
+ * a darker red for 9 months, purple for a year and beyond. */
+const MILESTONES=[
+  {days:1,   label:'24 hours', color:'#FFFFFF', text:'#17262E', border:true},
+  {days:30,  label:'30 days',  color:'#C0392B', text:'#FFFFFF'},
+  {days:60,  label:'60 days',  color:'#C99A2E', text:'#17262E'},
+  {days:90,  label:'90 days',  color:'#3F8F5C', text:'#FFFFFF'},
+  {days:182, label:'6 months', color:'#2E6FA7', text:'#FFFFFF'},
+  {days:274, label:'9 months', color:'#7A2E2E', text:'#FFFFFF'},
+  {days:365, label:'1 year',   color:'#6A3FA0', text:'#FFFFFF'},
+];
+
+function mostRecentDrinkKey(){
+  const keys=DB.entries.filter(e=>e.kind==='alcohol').map(e=>dkey(new Date(e.ts)));
+  return keys.length? keys.sort().slice(-1)[0] : null;
+}
+function streakStartKey(){
+  const lastDrink=mostRecentDrinkKey();
+  const manual=DB.settings.sobrietyStartDate;
+  if(manual && (!lastDrink || manual>lastDrink)) return manual;
+  if(lastDrink) return dkey(addDays(fromKey(lastDrink),1));
+  return manual;
+}
+function currentStreakDays(){
+  const startKey=streakStartKey();
+  if(!startKey) return null;
+  const diff=Math.floor((today()-fromKey(startKey))/86400000)+1;
+  return Math.max(0, diff);
+}
+function renderStreakCard(){
+  const el=document.getElementById('streakCard');
+  const streak=currentStreakDays();
+  const earned=MILESTONES.filter(m=>streak!==null && streak>=m.days);
+  const next=MILESTONES.find(m=>streak===null || streak<m.days);
+  const chips=MILESTONES.map(m=>{
+    const isEarned=streak!==null && streak>=m.days;
+    const style=isEarned? `background:${m.color};color:${m.text};${m.border?'border-color:var(--line)':''}` : '';
+    return `<div class="mchip ${isEarned?'earned':''}" title="${m.label}">
+      <div class="dot" style="${style}">${isEarned?'✓':''}</div>
+      <div class="t">${m.label}</div>
+    </div>`;
+  }).join('');
+  el.innerHTML = `<section class="streakcard">
+    ${streak===null
+      ? `<div class="lbl">No sobriety start date set yet</div><button class="setlink" id="setStreakBtn">Set your start date</button>`
+      : `<div class="num">${streak}</div><div class="lbl">${streak===1?'day':'days'} alcohol-free${next? ` · ${next.days-streak} to go for ${next.label}` : ' · every milestone earned'}</div>`}
+    <div class="chipstrip">${chips}</div>
+  </section>`;
+  const setBtn=document.getElementById('setStreakBtn');
+  if(setBtn) setBtn.onclick=openStreakSettings;
+}
+function openStreakSettings(){
+  openSheet('Sobriety start date', `
+    <p class="note">This sets when your current streak began. It updates automatically the day after any drink you log — only set it by hand if you're starting fresh in the app, or resetting after a slip.</p>
+    <div class="field"><label for="ssd">Start date</label><input id="ssd" type="date" value="${DB.settings.sobrietyStartDate||dkey(today())}"></div>
+    <button class="primary" id="ssdSave">Save</button>
+  `, ()=>{
+    document.getElementById('ssdSave').onclick=async()=>{
+      DB.settings.sobrietyStartDate=document.getElementById('ssd').value || null;
+      await save(); closeSheet(); render();
+    };
+  });
+}
+
+/* ---------- crisis resources ---------- */
+function openCrisis(){
+  openSheet('Need help now?', `
+    <p class="note">This app is a support tool, not a substitute for professional care. If you're in crisis or thinking about harming yourself, please reach out right now — these are free, confidential, and available anytime.</p>
+    <a class="pick wide" style="display:block;margin-bottom:9px;text-decoration:none" href="tel:988"><b>988 Suicide &amp; Crisis Lifeline</b><span>Call or text 988 · 24/7</span></a>
+    <a class="pick wide" style="display:block;text-decoration:none" href="tel:18006624357"><b>SAMHSA National Helpline</b><span>1-800-662-4357 · free, confidential, 24/7</span></a>
+  `);
+}
+
+/* ---------- craving journal ---------- */
+const CRAVING_LEVELS=[
+  {id:'mild', label:'Mild', desc:'Noticed it, staying steady'},
+  {id:'moderate', label:'Moderate', desc:'Distracting, need a plan'},
+  {id:'intense', label:'Intense', desc:'Hard to think past it'},
+];
+function openCraving(){
+  const contexts=['Home alone','With friends','Out','With family','Work','After a hard day'];
+  let intensity='moderate', ctx='';
+  openSheet('Log a craving', `
+    <div class="field"><label>How strong is it?</label><div class="chiprow" id="cravLevel">
+      ${CRAVING_LEVELS.map(l=>`<button class="chip" aria-pressed="${l.id===intensity}" data-l="${l.id}">${l.label}</button>`).join('')}
+    </div></div>
+    <div class="field"><label>What's going on</label><div class="chiprow" id="cravCtx">
+      ${contexts.map(c=>`<button class="chip" data-c="${c}">${c}</button>`).join('')}
+    </div></div>
+    <div class="field"><label for="cravNote">Note (optional)</label><textarea id="cravNote" placeholder="What triggered it, what's helping right now."></textarea></div>
+    <button class="primary" id="cravSave">Save — no drink logged</button>
+  `, ()=>{
+    document.querySelectorAll('#cravLevel .chip').forEach(b=>b.onclick=()=>{
+      intensity=b.dataset.l;
+      document.querySelectorAll('#cravLevel .chip').forEach(x=>x.setAttribute('aria-pressed', x.dataset.l===intensity));
+    });
+    document.querySelectorAll('#cravCtx .chip').forEach(b=>b.onclick=()=>{
+      ctx = ctx===b.dataset.c? '' : b.dataset.c;
+      document.querySelectorAll('#cravCtx .chip').forEach(x=>x.setAttribute('aria-pressed', x.dataset.c===ctx));
+    });
+    document.getElementById('cravSave').onclick=()=>{
+      addEntry({kind:'craving', label:'Craving', intensity, context:ctx, note:document.getElementById('cravNote').value.trim(), ts:Date.now()});
+      closeSheet();
+    };
+  });
+}
+
 /* ---------- rendering ---------- */
 const BACKUP_REMINDER_DAYS=21;
 function updateBackupBanner(){
@@ -243,6 +370,7 @@ function render(){
   el.innerHTML = view==='day'? renderDay() : view==='week'? renderWeek() : renderMonth();
   bindView();
   updateBackupBanner();
+  renderStreakCard();
 }
 
 function renderDay(){
@@ -276,11 +404,14 @@ function renderDay(){
 }
 
 function entryRow(e){
-  const amt = e.kind==='alcohol' ? `<span class="sd">${round1(e.sd)}</span>` : `<span class="sd other">${e.qty||1} ${e.unit||''}</span>`;
+  const amt = e.kind==='alcohol' ? `<span class="sd">${round1(e.sd)}</span>`
+    : e.kind==='craving' ? `<span class="sd other">${(CRAVING_LEVELS.find(l=>l.id===e.intensity)||{}).label||''}</span>`
+    : `<span class="sd other">${e.qty||1} ${e.unit||''}</span>`;
+  const label = e.kind==='craving' ? 'Craving' : e.label;
   const meta=[e.context,e.note].filter(Boolean).join(' · ');
   return `<button class="entry" data-id="${e.id}">
     <span class="time">${fmtTime(e.ts)}</span>
-    <span class="name">${esc(e.label)}${meta?`<small>${esc(meta)}</small>`:''}</span>${amt}</button>`;
+    <span class="name">${esc(label)}${meta?`<small>${esc(meta)}</small>`:''}</span>${amt}</button>`;
 }
 
 function renderWeek(){
@@ -507,6 +638,8 @@ function openEntry(id){
     <div class="field"><label for="el">What it was</label><input id="el" value="${esc(e.label)}"></div>
     ${e.kind==='alcohol'
       ? `<div class="field"><label for="esd">Standard drinks</label><input id="esd" type="number" inputmode="decimal" step="0.1" value="${round1(e.sd)}"></div>`
+      : e.kind==='craving'
+      ? `<div class="field"><label>How strong was it?</label><div class="chiprow" id="ecrav">${CRAVING_LEVELS.map(l=>`<button class="chip" aria-pressed="${l.id===e.intensity}" data-l="${l.id}">${l.label}</button>`).join('')}</div></div>`
       : `<div class="field"><label for="eq">How many</label><input id="eq" type="number" inputmode="decimal" step="0.5" value="${e.qty||1}"></div>`}
     <div class="field"><label for="ets">When</label><input id="ets" type="datetime-local" value="${local}"></div>
     <div class="field"><label>Context</label><div class="chiprow" id="ectx">
@@ -517,13 +650,19 @@ function openEntry(id){
     <button class="ghost danger" id="edel">Delete this entry</button>
   `, ()=>{
     let ctx=e.context||'';
+    let intensity=e.intensity;
     document.querySelectorAll('#ectx .chip').forEach(b=>b.onclick=()=>{
       ctx = ctx===b.dataset.c? '' : b.dataset.c;
       document.querySelectorAll('#ectx .chip').forEach(x=>x.setAttribute('aria-pressed', x.dataset.c===ctx));
     });
+    document.querySelectorAll('#ecrav .chip').forEach(b=>b.onclick=()=>{
+      intensity=b.dataset.l;
+      document.querySelectorAll('#ecrav .chip').forEach(x=>x.setAttribute('aria-pressed', x.dataset.l===intensity));
+    });
     document.getElementById('esave').onclick=async()=>{
       e.label=document.getElementById('el').value.trim()||e.label;
       if(e.kind==='alcohol') e.sd=parseFloat(document.getElementById('esd').value)||0;
+      else if(e.kind==='craving') e.intensity=intensity;
       else e.qty=parseFloat(document.getElementById('eq').value)||1;
       e.ts=new Date(document.getElementById('ets').value).getTime()||e.ts;
       e.context=ctx; e.note=document.getElementById('enote').value.trim();
@@ -683,6 +822,8 @@ function download(name, text, type){
 /* ---------- wire up ---------- */
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ view=b.dataset.view; if(view!=='day') focusDate=null; render(); });
 document.getElementById('btnLog').onclick=openLog;
+document.getElementById('btnCraving').onclick=openCraving;
+document.getElementById('btnCrisis').onclick=openCrisis;
 document.getElementById('btnSettings').onclick=openSettings;
 
 (async()=>{
